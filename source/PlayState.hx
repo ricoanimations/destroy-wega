@@ -14,11 +14,14 @@ class PlayState extends FlxState
 	var number:Int = 0;
 	var text:FlxText;
 	var wega:FlxSprite;
-	var randomNumberA = FlxG.random.int(0, 1180);
-	var randomNumberB = FlxG.random.int(0, 620);
-	var time:Int = 60;
+	var randomNumberA = FlxG.random.int(0, 1050);
+	var randomNumberB = FlxG.random.int(0, 475);
+	var time:Int = 117;
+	var timeText:FlxText;
 	var scream:FlxSound;
 	var bigWega:FlxSprite;
+	var randomNumberC = FlxG.random.int(0, 1);
+	var randomNumberD = FlxG.random.int(0, 1);
 
 	override public function create()
 	{
@@ -35,9 +38,8 @@ class PlayState extends FlxState
 		add(wega);
 		
 		bigWega = new FlxSprite();
-		bigWega.loadGraphic("assets/images/wega.png");
+		bigWega.loadGraphic("assets/images/scream.png");
 		bigWega.screenCenter();
-		bigWega.scale.set(3, 3);
 		bigWega.alpha = 0;
 		add(bigWega);
 
@@ -47,6 +49,13 @@ class PlayState extends FlxState
 		text.screenCenter(X);
 		text.y = FlxG.height / 12;
 		add(text);
+
+		timeText = new FlxText();
+		timeText.text = '${time}';
+		timeText.size = 48;
+		timeText.x = FlxG.width / 12;
+		timeText.y = FlxG.height / 12;
+		add(timeText);
 	}
 
 	override public function update(elapsed:Float)
@@ -69,8 +78,8 @@ class PlayState extends FlxState
 
 	function addWega()
 	{
-		var randomNumberX = FlxG.random.int(0, 1280);
-		var randomNumberY = FlxG.random.int(0, 720);
+		var randomNumberX = FlxG.random.int(0, 1050);
+		var randomNumberY = FlxG.random.int(0, 475);
 		jumpscare();
 		playdaScream();
 		wega = new FlxSprite();
@@ -78,6 +87,7 @@ class PlayState extends FlxState
 		wega.x = randomNumberX;
 		wega.y = randomNumberY;
 		add(wega);
+		wegaMove();
 	}
 
 	function playdaMusic()
@@ -98,5 +108,42 @@ class PlayState extends FlxState
 	{
 		bigWega.alpha = 1;
 		FlxTween.tween(bigWega, {alpha: 0}, 0.5);
+		FlxG.camera.shake();
+	}
+
+	function wegaMove()
+	{
+		if (randomNumberC == 0)
+		{
+			wega.velocity.x *= 1;
+		}
+		else
+		{
+			wega.velocity.x *= -1;
+		}
+
+		if (randomNumberD == 0)
+		{
+			wega.velocity.y *= 1;
+		}
+		else
+		{
+			wega.velocity.y *= -1;
+		}
+	}
+
+	function alsocountdown(_):Void
+	{
+		new FlxTimer().start(1, function(countthedown:FlxTimer)
+		{
+			time--;
+			remove(timeText);
+			timeText = new FlxText();
+			timeText.text = '${time}';
+			timeText.size = 48;
+			timeText.x = FlxG.width / 12;
+			timeText.y = FlxG.height / 12;
+			add(timeText);
+		});
 	}
 }
