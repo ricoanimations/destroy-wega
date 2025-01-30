@@ -7,6 +7,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxTimer;
 import flixel.sound.FlxSound;
 import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 
 class PlayState extends FlxState
 {
@@ -16,7 +17,7 @@ class PlayState extends FlxState
 	var wega:FlxSprite;
 	var randomNumberA = FlxG.random.int(0, 1050);
 	var randomNumberB = FlxG.random.int(0, 475);
-	var time:Int = 117;
+	var time:Int = 116;
 	var timeText:FlxText;
 	var scream:FlxSound;
 	var bigWega:FlxSprite;
@@ -28,8 +29,9 @@ class PlayState extends FlxState
 		super.create();
 
 		bg = new FlxSprite();
-        bg.makeGraphic(1280, 720, 0xFF808080);
+        bg.loadGraphic("assets/images/playstate.png");
         add(bg);
+
 
 		wega = new FlxSprite();
 		wega.loadGraphic("assets/images/wega.png");
@@ -45,6 +47,7 @@ class PlayState extends FlxState
 
 		text = new FlxText();
 		text.text = 'WEGAS DESTROYED: ${number}';
+		text.font = "assets/fonts/comic.ttf";
 		text.size = 48;
 		text.screenCenter(X);
 		text.y = FlxG.height / 12;
@@ -52,10 +55,13 @@ class PlayState extends FlxState
 
 		timeText = new FlxText();
 		timeText.text = '${time}';
+		timeText.font = "assets/fonts/comic.ttf";
 		timeText.size = 48;
 		timeText.x = FlxG.width / 12;
 		timeText.y = FlxG.height / 12;
 		add(timeText);
+
+		FlxTween.num(116, 0, 116, {ease: FlxEase.linear}, updateValue);
 	}
 
 	override public function update(elapsed:Float)
@@ -132,18 +138,8 @@ class PlayState extends FlxState
 		}
 	}
 
-	function alsocountdown(_):Void
+	private function updateValue(value:Float):Void
 	{
-		new FlxTimer().start(1, function(countthedown:FlxTimer)
-		{
-			time--;
-			remove(timeText);
-			timeText = new FlxText();
-			timeText.text = '${time}';
-			timeText.size = 48;
-			timeText.x = FlxG.width / 12;
-			timeText.y = FlxG.height / 12;
-			add(timeText);
-		});
+		timeText.text = Std.string(Std.int(value));
 	}
 }
