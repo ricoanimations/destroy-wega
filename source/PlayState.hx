@@ -73,10 +73,7 @@ class PlayState extends FlxState
 		timeText.y = FlxG.height / 12;
 		add(timeText);
 
-		if (FlxG.sound.music == null)
-		{
-			FlxG.sound.playMusic("assets/music/iason-mason.ogg", 1, true);
-		}
+		FlxG.sound.playMusic("assets/music/iason-mason.ogg", 1, true);
 
 		time = Std.int(FlxG.sound.music.length / 1000);
 

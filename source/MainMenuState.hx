@@ -67,6 +67,11 @@ class MainMenuState extends FlxState
         warning.screenCenter(X);
         warning.y = (FlxG.height / 4) * 3;
         add(warning);
+
+        if (FlxG.sound.music == null)
+        {
+            FlxG.sound.playMusic("assets/music/the-real-sigma-v4.ogg", 1, true);
+        }
 	}
 
 	override public function update(elapsed:Float)
