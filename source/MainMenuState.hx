@@ -5,6 +5,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 
 class MainMenuState extends FlxState
 {
@@ -15,6 +16,7 @@ class MainMenuState extends FlxState
     var text:FlxText;
     var textcredits:FlxText;
     var wega:FlxText;
+    var setting:Bool = true;
 
 	override public function create()
 	{
@@ -45,7 +47,7 @@ class MainMenuState extends FlxState
         textcredits = new FlxText();
         textcredits.text = 'CREDITS';
         textcredits.font = "assets/fonts/comic.ttf";
-        textcredits.size = 18;
+        textcredits.size = 20;
         textcredits.x = credits.x + ((credits.width / 2) - (textcredits.width / 2));
         textcredits.y = credits.y + ((credits.height / 2) - (textcredits.height / 2));
         add(textcredits);
@@ -57,6 +59,14 @@ class MainMenuState extends FlxState
         wega.screenCenter(X);
         wega.y = FlxG.height / 4;
         add(wega);
+
+        warning = new FlxText();
+        warning.text = 'SEIZURE/EPILEPSY WARNING';
+        warning.font = "assets/fonts/comic.ttf";
+        warning.size = 64;
+        warning.screenCenter(X);
+        warning.y = (FlxG.height / 4) * 3;
+        add(warning);
 	}
 
 	override public function update(elapsed:Float)
@@ -65,8 +75,8 @@ class MainMenuState extends FlxState
 
         if (FlxG.mouse.overlaps(enter))
         {
-            FlxTween.tween(enter, {alpha: 0.5}, 0.5);
-            FlxTween.tween(text, {alpha: 0.5}, 0.5);
+            FlxTween.tween(enter, {alpha: 0.5}, 0.5, {ease: FlxEase.linear});
+            FlxTween.tween(text, {alpha: 0.5}, 0.5, {ease: FlxEase.linear});
 
             if (FlxG.mouse.justPressed)
             {
@@ -75,14 +85,14 @@ class MainMenuState extends FlxState
         }
         else if (!FlxG.mouse.overlaps(enter))
         {
-            FlxTween.tween(enter, {alpha: 1}, 0.5);
-            FlxTween.tween(text, {alpha: 1}, 0.5);
+            FlxTween.tween(enter, {alpha: 1}, 0.5, {ease: FlxEase.linear});
+            FlxTween.tween(text, {alpha: 1}, 0.5, {ease: FlxEase.linear});
         }
 
         if (FlxG.mouse.overlaps(credits))
         {
-            FlxTween.tween(credits, {alpha: 0.5}, 0.5);
-            FlxTween.tween(textcredits, {alpha: 0.5}, 0.5);
+            FlxTween.tween(credits, {alpha: 0.5}, 0.5, {ease: FlxEase.linear});
+            FlxTween.tween(textcredits, {alpha: 0.5}, 0.5, {ease: FlxEase.linear});
 
             if (FlxG.mouse.justPressed)
             {
@@ -91,8 +101,8 @@ class MainMenuState extends FlxState
         }
         else if (!FlxG.mouse.overlaps(credits))
         {
-            FlxTween.tween(enter, {alpha: 1}, 0.5);
-            FlxTween.tween(text, {alpha: 1}, 0.5);
+            FlxTween.tween(credits, {alpha: 1}, 0.5, {ease: FlxEase.linear});
+            FlxTween.tween(textcredits, {alpha: 1}, 0.5, {ease: FlxEase.linear});
         }
 	}
 }
