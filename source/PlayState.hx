@@ -8,6 +8,7 @@ import flixel.util.FlxTimer;
 import flixel.sound.FlxSound;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
+import openfl.media.Video;
 import Std;
 
 class PlayState extends FlxState
@@ -58,7 +59,7 @@ class PlayState extends FlxState
 		add(text);
 
 		scoreText = new FlxText();
-		scoreText.text = "SOMARI'S SCORE:" + Std.string(score);
+		scoreText.text = "SOMARI'S SCORE: " + Std.string(score);
 		scoreText.font = "assets/fonts/comic.ttf";
 		scoreText.size = 48;
 		scoreText.screenCenter(X);
@@ -139,7 +140,7 @@ class PlayState extends FlxState
 	{
 		new FlxTimer().start(time, function(endDaGame:FlxTimer)
 		{
-			FlxG.switchState(new ScoreState());
+			FlxG.switchState(new MainMenuState());
 		});
 	}
 
@@ -147,13 +148,13 @@ class PlayState extends FlxState
 	{
 		score += addingUp;
 		addingUp = Std.int(addingUp * 1.01);
-		scoreText.text = "SOMARI'S SCORE:" + Std.string(score);
+		scoreText.text = "SOMARI'S SCORE: " + Std.string(score);
 	}
 
 	function scoreChangeBad()
 	{
 		score -= addingDown;
 		addingDown = Std.int(addingDown * 1.02);
-		scoreText.text = "SOMARI'S SCORE:" + Std.string(score);
+		scoreText.text = "SOMARI'S SCORE: " + Std.string(score);
 	}
 }
